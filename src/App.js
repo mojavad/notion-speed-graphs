@@ -1,11 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import LoginButton from "./Components/LoginButton";
+import LogoutButton from "./Components/LogoutButton";
+import Profile from "./Components/Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (!isAuthenticated) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <LoginButton />
+          <LogoutButton />
+        </header>
+      </div>
+    );
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Profile />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -17,6 +33,7 @@ function App() {
         >
           Learn React
         </a>
+        <LogoutButton />
       </header>
     </div>
   );
